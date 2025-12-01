@@ -1,4 +1,4 @@
-<%@ Page Title="Shop - CartPro" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Shop.aspx.cs" Inherits="CartProWebApp.Shop" %>
+    <%@ Page Title="Shop - CartPro" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Shop.aspx.cs" Inherits="CartProWebApp.Shop" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
     Shop - CartPro
