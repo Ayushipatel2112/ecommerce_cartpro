@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
@@ -133,42 +133,85 @@ namespace CartProWebApp
         }
 
         // --- CART LOGIC ---
+        // --- PASTE THIS INSIDE Shop.aspx.cs CLASS ---
+        // --- PASTE THIS INSIDE Shop.aspx.cs CLASS ---
+
         private void AddToCartLogic(string productId, int quantity)
         {
-            DataTable dtCart;
-            if (Session["Cart"] == null)
+            // 1. CHECK IF USER IS LOGGED IN
+            // We need the User ID to save to the database. 
+            // If Session["UserId"] is null, the code stops here and sends them to Login.
+            if (Session["UserId"] == null)
             {
-                dtCart = new DataTable();
-                dtCart.Columns.Add("id", typeof(int));
-                dtCart.Columns.Add("quantity", typeof(int));
-            }
-            else
-            {
-                dtCart = (DataTable)Session["Cart"];
+                Response.Redirect("Login.aspx");
+                return;
             }
 
-            DataRow[] existingRows = dtCart.Select("id=" + productId);
-            if (existingRows.Length > 0)
+            int userId = Convert.ToInt32(Session["UserId"]);
+
+            // 2. CONNECT TO DATABASE
+            using (SqlConnection con = new SqlConnection(cs))
             {
-                int currentQty = Convert.ToInt32(existingRows[0]["quantity"]);
-                existingRows[0]["quantity"] = currentQty + quantity;
-            }
-            else
-            {
-                DataRow dr = dtCart.NewRow();
-                dr["id"] = productId;
-                dr["quantity"] = quantity;
-                dtCart.Rows.Add(dr);
+                con.Open();
+
+                // 3. CHECK IF ITEM IS ALREADY IN THE CART
+                string checkQuery = "SELECT id, quantity FROM CartItems WHERE user_id = @Uid AND product_id = @Pid";
+
+                int existingCartId = 0;
+                int existingQty = 0;
+
+                using (SqlCommand checkCmd = new SqlCommand(checkQuery, con))
+                {
+                    checkCmd.Parameters.AddWithValue("@Uid", userId);
+                    checkCmd.Parameters.AddWithValue("@Pid", productId);
+
+                    using (SqlDataReader rdr = checkCmd.ExecuteReader())
+                    {
+                        if (rdr.Read())
+                        {
+                            existingCartId = Convert.ToInt32(rdr["id"]);
+                            existingQty = Convert.ToInt32(rdr["quantity"]);
+                        }
+                    }
+                }
+
+                // 4. INSERT OR UPDATE BASED ON CHECK RESULT
+                if (existingCartId > 0)
+                {
+                    // A. ITEM EXISTS -> UPDATE QUANTITY
+                    // We add the new quantity to the existing quantity
+                    string updateQuery = "UPDATE CartItems SET quantity = @Qty WHERE id = @CartId";
+
+                    using (SqlCommand updateCmd = new SqlCommand(updateQuery, con))
+                    {
+                        updateCmd.Parameters.AddWithValue("@Qty", existingQty + quantity);
+                        updateCmd.Parameters.AddWithValue("@CartId", existingCartId);
+                        updateCmd.ExecuteNonQuery();
+                    }
+                }
+                else
+                {
+                    // B. ITEM IS NEW -> INSERT ROW
+                    string insertQuery = "INSERT INTO CartItems (user_id, product_id, quantity) VALUES (@Uid, @Pid, @Qty)";
+
+                    using (SqlCommand insertCmd = new SqlCommand(insertQuery, con))
+                    {
+                        insertCmd.Parameters.AddWithValue("@Uid", userId);
+                        insertCmd.Parameters.AddWithValue("@Pid", productId);
+                        insertCmd.Parameters.AddWithValue("@Qty", quantity);
+                        insertCmd.ExecuteNonQuery();
+                    }
+                }
             }
 
-            Session["Cart"] = dtCart;
-
+            // 5. UPDATE HEADER CART COUNT (If you have a Master Page method)
             if (this.Master is SiteMaster)
             {
                 ((SiteMaster)this.Master).UpdateCartCount();
             }
 
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "alert('Added to Cart Successfully!');", true);
+            // 6. SHOW SUCCESS MESSAGE
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "alert('Item successfully saved to Database!');window.location.href='shop.aspx';", true);
         }
 
         // --- WISHLIST LOGIC ---
@@ -176,7 +219,7 @@ namespace CartProWebApp
         {
             DataTable dtWishlist;
 
-            // Step A: Check karein session pehle se hai ya nahi
+            // Step A: Check Session
             if (Session["Wishlist"] == null)
             {
                 dtWishlist = new DataTable();
@@ -187,26 +230,28 @@ namespace CartProWebApp
                 dtWishlist = (DataTable)Session["Wishlist"];
             }
 
-            // Step B: Check karein item pehle se wishlist mein hai kya?
+            // Step B: Check for duplicates
             DataRow[] existingRows = dtWishlist.Select("id=" + productId);
 
             if (existingRows.Length == 0)
             {
-                // Agar nahi hai, to add karein
+                // Add item
                 DataRow dr = dtWishlist.NewRow();
                 dr["id"] = productId;
                 dtWishlist.Rows.Add(dr);
-
-                // Session update karein
                 Session["Wishlist"] = dtWishlist;
 
-                // Success Alert
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "alertWish", "alert('Item Added to Wishlist ❤️');", true);
+                // --- THE FIX IS HERE ---
+                // We combine the Alert, The Modal Close, and the Redirect into one script
+                string script = "alert('Item Added to Wishlist ❤️'); openProductModal(false); window.location.href='shop.aspx';";
+
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "RedirectToWishlist", script, true);
             }
             else
             {
                 // Duplicate Alert
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "alertWish", "alert('Item is already in your Wishlist!');", true);
+                string script = "alert('Item is already in your Wishlist!');";
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "alertWish", script, true);
             }
         }
 
