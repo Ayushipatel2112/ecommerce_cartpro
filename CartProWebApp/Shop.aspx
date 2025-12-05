@@ -1,4 +1,4 @@
-    <%@ Page Title="Shop - CartPro" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Shop.aspx.cs" Inherits="CartProWebApp.Shop" %>
+<%@ Page Title="Shop - CartPro" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Shop.aspx.cs" Inherits="CartProWebApp.Shop" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
     Shop - CartPro
@@ -25,25 +25,15 @@
                 <ContentTemplate>
 
                     <div class="row">
-                        <div class="col-md-3">
-                            <div class="sidebar-box">
-                                <h3>Categories</h3>
-                                <ul class="list-unstyled">
-                                    <li><a href="Shop.aspx">All Products</a></li>
-                                    <asp:Repeater ID="rptCategories" runat="server">
-                                        <ItemTemplate>
-                                            <li><a href='Shop.aspx?category=<%# Eval("category_name") %>'><%# Eval("category_name") %></a></li>
-                                        </ItemTemplate>
-                                    </asp:Repeater>
-                                </ul>
-                            </div>
-                        </div>
 
-                        <div class="col-md-9">
+
+                        <%-- 2. Changed col-md-9 to col-12 so products take full width --%>
+                        <div class="col-12">
                             <div class="row">
                                 <asp:Repeater ID="rptProducts" runat="server" OnItemCommand="rptProducts_ItemCommand">
                                     <ItemTemplate>
-                                        <div class="col-12 col-md-6 col-lg-4 mb-5">
+                                        <%-- Adjusted column sizes for better full-width layout --%>
+                                        <div class="col-12 col-md-4 col-lg-3 mb-5">
                                             <div class="product-item">
 
                                                 <asp:LinkButton ID="btnViewPopup" runat="server"
@@ -51,24 +41,24 @@
                                                     CommandArgument='<%# Eval("id") %>'
                                                     CausesValidation="false"
                                                     Style="text-decoration: none; color: inherit;">
-                                                    
-                                                    <img src='<%# GetImageUrl(Eval("image")) %>' class="img-fluid product-thumbnail" 
-                                                         style="height: 250px; object-fit: contain; width: 100%; background-color: #fff; padding: 10px; border-radius: 8px;"
-                                                         onerror="this.src='admin/images/no-image.png'" />
-                                                    
-                                                    <h3 class="product-title"><%# Eval("productname") %></h3>
-                                                    <strong class="product-price"><%# Eval("productprice", "{0:C}") %></strong>
+                                
+                                <img src='<%# GetImageUrl(Eval("image")) %>' class="img-fluid product-thumbnail" 
+                                     style="height: 250px; object-fit: contain; width: 100%; background-color: #fff; padding: 10px; border-radius: 8px;"
+                                     onerror="this.src='admin/images/no-image.png'" />
+                                
+                                <h3 class="product-title"><%# Eval("productname") %></h3>
+                                <strong class="product-price"><%# Eval("productprice", "{0:C}") %></strong>
 
-                                                    <div class="product-rating">
-                                                        <%# GetStarRating(Eval("id"), Eval("avg_rating"), Eval("total_ratings")) %>
-                                                    </div>
+                                <div class="product-rating">
+                                    <%# GetStarRating(Eval("id"), Eval("avg_rating"), Eval("total_ratings")) %>
+                                </div>
                                                 </asp:LinkButton>
 
                                                 <asp:LinkButton ID="btnAddToCart" runat="server" CssClass="icon-cross"
                                                     CommandName="AddToCart"
                                                     CommandArgument='<%# Eval("id") %>'
                                                     CausesValidation="false">
-                                                    <img src="images/cross.svg" class="img-fluid" />
+                                <img src="images/cross.svg" class="img-fluid" />
                                                 </asp:LinkButton>
                                             </div>
                                         </div>
@@ -76,7 +66,7 @@
                                 </asp:Repeater>
 
                                 <asp:Label ID="lblNoProducts" runat="server" Visible="false" CssClass="col-12 text-center">
-                                    <h3>No products found.</h3>
+                <h3>No products found.</h3>
                                 </asp:Label>
                             </div>
                         </div>
