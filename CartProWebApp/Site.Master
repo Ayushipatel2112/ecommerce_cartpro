@@ -98,12 +98,15 @@
                     <ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <img src="images/user.svg" alt="User" />
+                                <img id="imgUserIcon" runat="server" src="images/user.svg" alt="User" />
                             </a>
 
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
                                 <li><a class="dropdown-item" href="Login.aspx"><i class="fas fa-sign-in-alt me-2 text-primary"></i>Login</a></li>
                                 <li><a class="dropdown-item" href="Registration.aspx"><i class="fas fa-user-plus me-2 text-success"></i>Registration</a></li>
+
+                                <li><a class="dropdown-item" href="OrderHistory.aspx"><i class="fas fa-history me-2 text-warning"></i>Order History</a></li>
+
                                 <li><a class="dropdown-item" href="ViewProfile.aspx"><i class="fas fa-user-edit me-2 text-info"></i>Profile Update</a></li>
                                 <li>
                                     <hr class="dropdown-divider" />
@@ -146,7 +149,7 @@
         <footer class="footer-section">
             <div class="container relative">
                 <div class="sofa-img">
-                    <img src="images/sofa.png" alt="Image" class="img-fluid" />
+                    <img id="imgFooterSofa" runat="server" src="images/sofa.png" alt="Image" class="img-fluid" />
                 </div>
 
                 <div class="row">
@@ -196,14 +199,6 @@
 
                             <div class="col-6 col-sm-6 col-md-3">
                                 <ul class="list-unstyled">
-                                    <li><a href="#">Support</a></li>
-                                    <li><a href="#">Knowledge base</a></li>
-                                    <li><a href="#">Live chat</a></li>
-                                </ul>
-                            </div>
-
-                            <div class="col-6 col-sm-6 col-md-3">
-                                <ul class="list-unstyled">
                                     <li><a href="#">Jobs</a></li>
                                     <li><a href="#">Our team</a></li>
                                     <li><a href="#">Leadership</a></li>
@@ -211,13 +206,7 @@
                                 </ul>
                             </div>
 
-                            <div class="col-6 col-sm-6 col-md-3">
-                                <ul class="list-unstyled">
-                                    <li><a href="#">Nordic Chair</a></li>
-                                    <li><a href="#">Kruzo Aero</a></li>
-                                    <li><a href="#">Ergonomic Chair</a></li>
-                                </ul>
-                            </div>
+
                         </div>
                     </div>
                 </div>
