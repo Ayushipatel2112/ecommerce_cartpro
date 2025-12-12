@@ -41,9 +41,9 @@
                 <!-- Start Column 2 -->
                 <div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
                     <a class="product-item" href="Cart.aspx">
-                        <img src="images/product-1.png" class="img-fluid product-thumbnail" />
-                        <h3 class="product-title">Classic Leather Shoes</h3>
-                        <strong class="product-price">$120.00</strong>
+                        <img src="/admin/images/products/prod_639000441083957172_9faa.jpg" class="img-fluid product-thumbnail" />
+                        <h3 class="product-title">Classic Shoes</h3>
+
                         <span class="icon-cross">
                             <img src="images/cross.svg" class="img-fluid" />
                         </span>
@@ -54,9 +54,9 @@
                 <!-- Start Column 3 -->
                 <div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
                     <a class="product-item" href="Cart.aspx">
-                        <img src="images/product-2.png" class="img-fluid product-thumbnail" />
+                        <img src="admin\images\products\638997525110768975_perfumehb.jpg" class="img-fluid product-thumbnail" />
                         <h3 class="product-title">Luxury Perfume</h3>
-                        <strong class="product-price">$85.00</strong>
+
                         <span class="icon-cross">
                             <img src="images/cross.svg" class="img-fluid" />
                         </span>
@@ -67,9 +67,9 @@
                 <!-- Start Column 4 -->
                 <div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
                     <a class="product-item" href="Cart.aspx">
-                        <img src="images/product-3.png" class="img-fluid product-thumbnail" />
-                        <h3 class="product-title">Elegant Wrist Watch</h3>
-                        <strong class="product-price">$250.00</strong>
+                        <img src="admin\images\products\638997530806746057_bagadidas.jpg" class="img-fluid product-thumbnail" />
+                        <h3 class="product-title">Elegant Bag</h3>
+
                         <span class="icon-cross">
                             <img src="images/cross.svg" class="img-fluid" />
                         </span>
@@ -159,9 +159,15 @@
                 </div>
                 <div class="col-lg-7 mb-5 mb-lg-0">
                     <div class="imgs-grid">
-                        <div class="grid grid-1"><img src="images/img-grid-1.jpg" alt="Untree.co" /></div>
-                        <div class="grid grid-2"><img src="images/img-grid-2.jpg" alt="Untree.co" /></div>
-                        <div class="grid grid-3"><img src="images/img-grid-3.jpg" alt="Untree.co" /></div>
+                        <div class="grid grid-1">
+                            <img src="images/img-grid-1.jpg" alt="Untree.co" />
+                        </div>
+                        <div class="grid grid-2">
+                            <img src="images/img-grid-2.jpg" alt="Untree.co" />
+                        </div>
+                        <div class="grid grid-3">
+                            <img src="images/img-grid-3.jpg" alt="Untree.co" />
+                        </div>
                     </div>
                 </div>
             </div>
@@ -170,50 +176,7 @@
     <!-- End We Help Section -->
 
     <!-- Start Popular Product -->
-    <div class="popular-product">
-        <div class="container">
-            <div class="row">
-                <div class="col-12 col-md-6 col-lg-4 mb-4 mb-lg-0">
-                    <div class="product-item-sm d-flex">
-                        <div class="thumbnail">
-                            <img src="images/product-1.png" alt="Image" class="img-fluid" />
-                        </div>
-                        <div class="pt-3">
-                            <h3>Running Shoes</h3>
-                            <p>Lightweight and comfortable, perfect for your daily run.</p>
-                            <p><a href="#">Read More</a></p>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="col-12 col-md-6 col-lg-4 mb-4 mb-lg-0">
-                    <div class="product-item-sm d-flex">
-                        <div class="thumbnail">
-                            <img src="images/product-2.png" alt="Image" class="img-fluid" />
-                        </div>
-                        <div class="pt-3">
-                            <h3>Leather Belt</h3>
-                            <p>A classic accessory to complete any outfit.</p>
-                            <p><a href="#">Read More</a></p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-12 col-md-6 col-lg-4 mb-4 mb-lg-0">
-                    <div class="product-item-sm d-flex">
-                        <div class="thumbnail">
-                            <img src="images/product-3.png" alt="Image" class="img-fluid" />
-                        </div>
-                        <div class="pt-3">
-                            <h3>Digital Watch</h3>
-                            <p>A modern timepiece with a sleek design and multiple features.</p>
-                            <p><a href="#">Read More</a></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
     <!-- End Popular Product -->
 
     <!-- Start Testimonial Slider -->
